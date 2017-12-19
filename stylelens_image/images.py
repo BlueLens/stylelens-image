@@ -13,3 +13,16 @@ class Images(DataBase):
 
     return str(r)
 
+  def get_images(self, version_id=None, offset=0, limit=50):
+    query = {}
+    if version_id is None:
+      query = {}
+    else:
+      query = {"version_id": version_id}
+
+    try:
+      r = self.images.find(query).skip(offset).limit(limit)
+    except Exception as e:
+      print(e)
+
+    return list(r)
