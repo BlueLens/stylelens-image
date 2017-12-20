@@ -7,11 +7,16 @@ class Images(DataBase):
 
   def add_image(self, image):
     try:
-      r = self.images.insert(image)
+      query = {"host_code": image['host_code'],
+               "product_no": image['product_no'],
+               "version_id": image['version_id']}
+      r = self.images.update_one(query,
+                                 {"$set":image},
+                                 upsert=True)
     except Exception as e:
       print(e)
 
-    return str(r)
+    return r.raw_result
 
   def get_images(self, version_id=None, offset=0, limit=50):
     query = {}

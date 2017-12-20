@@ -5,7 +5,9 @@ from pprint import pprint
 api_instance = Images()
 
 image = {}
-image['product_id'] = '1234'
+image['product_id'] = '1234sdhjfddf'
+image['host_code'] = '2'
+image['product_no'] = '1111'
 image['version_id'] = '2234'
 
 try:
