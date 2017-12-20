@@ -26,3 +26,17 @@ class Images(DataBase):
       print(e)
 
     return list(r)
+
+  def delete_images(self, version_id, except_version=True):
+    query = {}
+    if except_version is True:
+      query = {"version_id": {"$ne": version_id}}
+    else:
+      query = {"version_id": version_id}
+
+    try:
+      r = self.images.delete_many(query)
+    except Exception as e:
+      print(e)
+
+    return r.raw_result
