@@ -1,3 +1,4 @@
+from bson.objectid import ObjectId
 from stylelens_image.database import DataBase
 
 class Images(DataBase):
@@ -17,6 +18,21 @@ class Images(DataBase):
       print(e)
 
     return r.raw_result
+
+  def get_image(self, image_id, version_id=None, offset=0, limit=50):
+    query = {}
+    query['_id'] = ObjectId(image_id)
+    if version_id is None:
+      query = {}
+    else:
+      query = {"version_id": version_id}
+
+    try:
+      r = self.images.find_one(query)
+    except Exception as e:
+      print(e)
+
+    return r
 
   def get_images(self, version_id=None, offset=0, limit=50):
     query = {}
