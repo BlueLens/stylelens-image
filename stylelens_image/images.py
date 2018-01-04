@@ -22,9 +22,7 @@ class Images(DataBase):
   def get_image(self, image_id, version_id=None, offset=0, limit=50):
     query = {}
     query['_id'] = ObjectId(image_id)
-    if version_id is None:
-      query = {}
-    else:
+    if version_id is not None:
       query = {"version_id": version_id}
 
     try:
@@ -47,6 +45,19 @@ class Images(DataBase):
       print(e)
 
     return list(r)
+
+  def update_image(self, image):
+    query = {}
+
+    query['_id'] = image['_id']
+    try:
+      r = self.images.update_one(query,
+                                 {"$set":image},
+                                 upsert=False)
+    except Exception as e:
+      print(e)
+
+    return r.raw_result
 
   def delete_images(self, version_id, except_version=True):
     query = {}
