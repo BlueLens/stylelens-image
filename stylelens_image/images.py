@@ -23,7 +23,7 @@ class Images(DataBase):
     query = {}
     query['_id'] = ObjectId(image_id)
     if version_id is not None:
-      query = {"version_id": version_id}
+      query["version_id"] = version_id
 
     try:
       r = self.images.find_one(query)
