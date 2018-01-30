@@ -93,3 +93,12 @@ class Images(DataBase):
       print(e)
 
     return r.raw_result
+
+  def delete_all(self):
+    query = {}
+    try:
+      r = self.images.delete_many(query)
+    except Exception as e:
+      print(e)
+
+    return r.raw_result
